@@ -1,0 +1,19 @@
+{
+  "name": "gestor-hoteles-back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Svega2019050/Gestor-Hoteles.git"
+  },
+  "author": "Grupo#4",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Svega2019050/Gestor-Hoteles/issues"
+  },
+  "homepage": "https://github.com/Svega2019050/Gestor-Hoteles#readme"
+}
