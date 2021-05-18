@@ -2,6 +2,8 @@
 
 var express = require('express');
 var bodyParser = require('body-parser');
+var userRoutes = require('./routes/user.route');
+var hotelRoute = require('./routes/hotel.route');
 
 
 var app = express();
@@ -16,5 +18,8 @@ app.use((req, res, next) => {
 	res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
 	next();
 });
+
+app.use('/api', userRoutes);
+app.use('/api',hotelRoute);
 
 module.exports = app;
