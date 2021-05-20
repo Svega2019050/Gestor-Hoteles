@@ -59,6 +59,7 @@ function getImage(req, res){
         }
     })
 }
+
 /* Login*/ 
 function login(req, res){
     var params = req.body;
