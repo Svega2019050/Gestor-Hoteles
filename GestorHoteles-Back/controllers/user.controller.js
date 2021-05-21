@@ -2,6 +2,7 @@
 
 var User = require('../models/user.model');
 var bcrypt = require('bcrypt-nodejs');
+const jwt = require('../services/jwt');
 const fs = require('fs');
 const path = require('path');
 
@@ -73,7 +74,13 @@ function login(req, res){
                     if (err) {
                         return res.status(500).send({message: ' Error General'});
                     } else if (checkPassword){
-                        return res.send({message: 'Usuario Logeado Correctamente'});
+                        if (params.gettoken) {
+                            delete userFind.password;
+                            return res.send({ token: jwt.createToken(userFind), user: userFind});
+                        } else {
+                            return res.send({message: 'Usuario Logeado Correctamente'});
+                        }
+                        
                     }else{
                         return res.status(401).send({message:'Contraseña Incorrecta'});
                     }
@@ -137,17 +144,33 @@ function updateUser(req, res){
     var userId = req.params.userId;
     var update = req.body;
 
-    if (update.password || update.role) {
-        return res.status(401).send({message:'No se puede actualizar la contraseña ni el rol'});
+    if (userId != req.user.sub) {
+        return res.status(401).send({message: 'No tiene permiso para realizar esta acción '});
     } else {
-        if (update.username) {
-            User.findOne({username: update.username.toLowerCase()},(err, userFind)=>{
-                if (err) {
-                    return res.status(500).send({message: ' Error General'});
-                } else if(userFind){
-                    User.username = update.username.toLowerCase();
-                    if (userFind._id == userId) {
-                        User.findByIdAndUpdate(userId, update,{username:update.username},{new:true},(err, userUpdate)=>{
+        if (update.password || update.role) {
+            return res.status(401).send({message:'No se puede actualizar la contraseña ni el rol'});
+        } else {
+            if (update.username) {
+                User.findOne({username: update.username.toLowerCase()},(err, userFind)=>{
+                    if (err) {
+                        return res.status(500).send({message: ' Error General'});
+                    } else if(userFind){
+                        User.username = update.username.toLowerCase();
+                        if (userFind._id == userId) {
+                            User.findByIdAndUpdate(userId, update,{username:update.username},{new:true},(err, userUpdate)=>{
+                                if (err) {
+                                    return res.status(500).send({message: ' Error General'});
+                                } else if(userUpdate){
+                                    return res.send({message:'Usuario Actualizado Correctamente',userUpdate});
+                                }else{
+                                    return res.status(401).send({message: 'No se pudo actualizar el usuario'});
+                                }
+                            });
+                        } else {
+                            return res.status(401).send({message:'Nombre de Usuario ya esta en Uso'});
+                        }
+                    }else{
+                        User.findByIdAndUpdate(userId, update,{new:true},(err, userUpdate)=>{
                             if (err) {
                                 return res.status(500).send({message: ' Error General'});
                             } else if(userUpdate){
@@ -156,25 +179,14 @@ function updateUser(req, res){
                                 return res.status(401).send({message: 'No se pudo actualizar el usuario'});
                             }
                         });
-                    } else {
-                        return res.status(401).send({message:'Nombre de Usuario ya esta en Uso'});
                     }
-                }else{
-                    User.findByIdAndUpdate(userId, update,{new:true},(err, userUpdate)=>{
-                        if (err) {
-                            return res.status(500).send({message: ' Error General'});
-                        } else if(userUpdate){
-                            return res.send({message:'Usuario Actualizado Correctamente',userUpdate});
-                        }else{
-                            return res.status(401).send({message: 'No se pudo actualizar el usuario'});
-                        }
-                    });
-                }
-            })
-        } else {
-            return res.status(401).send({message: ' Nececita los datos necesarios para actualizar el Usuario'});
+                })
+            } else {
+                return res.status(401).send({message: ' Nececita los datos necesarios para actualizar el Usuario'});
+            }
         }
     }
+    
 
 }
 
@@ -183,80 +195,90 @@ function removeUser(req, res){
     let userId = req.params.userId;
     let params = req.body;
    
-    User.findOne({_id: userId}, (err, userFind)=>{
-        if(err){
-            return res.status(500).send({message: 'Error general al eliminar'});
-        }else if(userFind){
-            bcrypt.compare(params.password, userFind.password, (err, checkPassword)=>{
-                if(err){
-                    return res.status(500).send({message: 'Error general al verificar contraseña'});
-                }else if(checkPassword){
-                    User.findByIdAndRemove(userId, (err, userRemoved)=>{
-                        if(err){
-                            return res.status(500).send({message: 'Error general al eliminar'});
-                        }else if(userRemoved){
-                            return res.send({message: 'Usuario eliminado', userRemoved});
-                        }else{
-                            return res.status(403).send({message: 'Usuario no eliminado'});
-                        }
-                    })
-                }else{
-                    return res.status(401).send({message: 'Contraseña incorrecta, no puedes eliminar tu cuenta sin tu contraseña'});
-                }
-            })
-        }else{
-            return res.status(403).send({message: 'Usuario no Encontrado'});
-        } 
-    })
+    if (userId != req.user.sub) {
+        return res.status(401).send({message: 'No tiene permiso para realizar esta acción '});
+    }else{
+        User.findOne({_id: userId}, (err, userFind)=>{
+            if(err){
+                return res.status(500).send({message: 'Error general al eliminar'});
+            }else if(userFind){
+                bcrypt.compare(params.password, userFind.password, (err, checkPassword)=>{
+                    if(err){
+                        return res.status(500).send({message: 'Error general al verificar contraseña'});
+                    }else if(checkPassword){
+                        User.findByIdAndRemove(userId, (err, userRemoved)=>{
+                            if(err){
+                                return res.status(500).send({message: 'Error general al eliminar'});
+                            }else if(userRemoved){
+                                return res.send({message: 'Usuario eliminado', userRemoved});
+                            }else{
+                                return res.status(403).send({message: 'Usuario no eliminado'});
+                            }
+                        })
+                    }else{
+                        return res.status(401).send({message: 'Contraseña incorrecta, no puedes eliminar tu cuenta sin tu contraseña'});
+                    }
+                })
+            }else{
+                return res.status(403).send({message: 'Usuario no Encontrado'});
+            } 
+        });
+    }
+
     
 }
 
 /* save Admin user */
 function saveUserByAdmin(req, res) {
-    var userId = req.params.id;
+    var userId = req.params.userId;
     var user = new User();
     var params = req.body;
 
-    if(params.name && params.username && params.email && params.password && params.role){
-        User.findOne({username: params.username}, (err, userFind)=>{
-            if(err){
-                return res.status(500).send({message: 'Error general en el servidor'});
-            }else if(userFind){
-                return res.send({message: 'Nombre de usuario ya en uso'});
-            }else{
-                bcrypt.hash(params.password, null, null, (err, passwordHash)=>{
-                    if(err){
-                        return res.status(500).send({message: 'Error general en la encriptación'});
-                    }else if(passwordHash){
-                        user.password = passwordHash;
-                        user.name = params.name;
-                        user.lastname = params.lastname;
-                        user.role = params.role;
-                        user.username = params.username.toLowerCase();
-                        user.email = params.email.toLowerCase();
-
-                        user.save((err, userSaved)=>{
-                            if(err){
-                                return res.status(500).send({message: 'Error general al guardar'});
-                            }else if(userSaved){
-                                return res.send({message: 'Usuario guardado', userSaved});
-                            }else{
-                                return res.status(500).send({message: 'No se guardó el usuario'});
-                            }
-                        })
-                    }else{
-                        return res.status(401).send({message: 'Contraseña no encriptada'});
-                    }
-                })
-            }
-        })
+    if (userId != req.user.sub) {
+        return res.status(401).send({message: 'No tiene permiso para realizar esta acción '});
     }else{
-        return res.send({message: 'Por favor ingresa los datos obligatorios'});
+        if(params.name && params.username && params.email && params.password && params.role){
+            User.findOne({username: params.username.toLowerCase()}, (err, userFind)=>{
+                if(err){
+                    return res.status(500).send({message: 'Error general en el servidor'});
+                }else if(userFind){
+                    return res.send({message: 'Nombre de usuario ya en uso'});
+                }else{
+                    bcrypt.hash(params.password, null, null, (err, passwordHash)=>{
+                        if(err){
+                            return res.status(500).send({message: 'Error general en la encriptación'});
+                        }else if(passwordHash){
+                            user.password = passwordHash;
+                            user.name = params.name;
+                            user.lastname = params.lastname;
+                            user.role = params.role;
+                            user.username = params.username.toLowerCase();
+                            user.email = params.email.toLowerCase();
+    
+                            user.save((err, userSaved)=>{
+                                if(err){
+                                    return res.status(500).send({message: 'Error general al guardar'});
+                                }else if(userSaved){
+                                    return res.send({message: 'Usuario guardado', userSaved});
+                                }else{
+                                    return res.status(500).send({message: 'No se guardó el usuario'});
+                                }
+                            })
+                        }else{
+                            return res.status(401).send({message: 'Contraseña no encriptada'});
+                        }
+                    })
+                }
+            })
+        }else{
+            return res.send({message: 'Por favor ingresa los datos obligatorios'});
+        }
     }
+   
     
 }
 
-
+/* Buscar */
 function search(req, res){
     var params = req.body;
 
