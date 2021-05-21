@@ -11,48 +11,53 @@ function savedHotel(req, res){
     var hotel = new Hotel();
     var params = req.body;
 
-    User.findById(userId,(err,userFind)=>{
-        if (err) {
-            return res.status(500).send({message: ' Error General'});
-        } else if(userFind){
-            if (params.name && params.description && params.direction  && params.phone) {
-                Hotel.findOne({name: params.name.toLowerCase()}, (err, hotelFind)=>{
-                    if (err) {
-                        return res.status(500).send({message: ' Error General'});
-                    }else if (hotelFind) {
-                        return res.send({message:'Nombre de Hotel Ya Registrado'});
-                    }else{
-                        hotel.name = params.name.toLowerCase();
-                        hotel.description = params.description.toLowerCase();
-                        hotel.direction = params.direction;
-                        hotel.phone = params.phone;
-        
-                        hotel.save((err, hotelSaved)=>{
-                            if (err) {
-                                return res.status(500).send({message: ' Error General'}); 
-                            } else if(hotelSaved){
-                                User.findByIdAndUpdate(userId,{$push:{hotel:hotelSaved._id}},{new:true},(err,hotelPush)=>{
-                                    if (err) {
-                                        return res.status(500).send({message: ' Error General'});
-                                    } else if(hotelPush){
-                                        return res.send({message:'Hotel Guardado Exitosamente',hotelPush});
-                                    }else{
-                                        return res.status(500).send({message: 'Error al agregar Hotel'})
-                                    }
-                                }).populate('hotel');
-                            }else{
-                                return res.status(500).send({message:'No se Guardo EL Hotel'})
-                            }
-                        });
-                    }
-                });
-            } else {
-                return res.status(401).send({message:'Porfavor Ingrese los Datos Necesarios'});
+    if (userId != req.user.sub) {
+        return res.status(401).send({message: 'No tiene permiso para realizar esta acción '});
+    }else{
+        User.findById(userId,(err,userFind)=>{
+            if (err) {
+                return res.status(500).send({message: ' Error General'});
+            } else if(userFind){
+                if (params.name && params.description && params.direction  && params.phone) {
+                    Hotel.findOne({name: params.name.toLowerCase()}, (err, hotelFind)=>{
+                        if (err) {
+                            return res.status(500).send({message: ' Error General'});
+                        }else if (hotelFind) {
+                            return res.send({message:'Nombre de Hotel Ya Registrado'});
+                        }else{
+                            hotel.name = params.name.toLowerCase();
+                            hotel.description = params.description.toLowerCase();
+                            hotel.direction = params.direction;
+                            hotel.phone = params.phone;
+            
+                            hotel.save((err, hotelSaved)=>{
+                                if (err) {
+                                    return res.status(500).send({message: ' Error General'}); 
+                                } else if(hotelSaved){
+                                    User.findByIdAndUpdate(userId,{$push:{hotel:hotelSaved._id}},{new:true},(err,hotelPush)=>{
+                                        if (err) {
+                                            return res.status(500).send({message: ' Error General'});
+                                        } else if(hotelPush){
+                                            return res.send({message:'Hotel Guardado Exitosamente',hotelPush});
+                                        }else{
+                                            return res.status(500).send({message: 'Error al agregar Hotel'})
+                                        }
+                                    }).populate('hotel');
+                                }else{
+                                    return res.status(500).send({message:'No se Guardo EL Hotel'})
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    return res.status(401).send({message:'Porfavor Ingrese los Datos Necesarios'});
+                }
+            }else{
+    
             }
-        }else{
-
-        }
-    })
+        })
+    }
+    
 
     
 }
