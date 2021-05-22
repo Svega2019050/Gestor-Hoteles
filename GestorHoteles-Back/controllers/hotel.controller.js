@@ -29,6 +29,7 @@ function savedHotel(req, res){
                             hotel.description = params.description.toLowerCase();
                             hotel.direction = params.direction;
                             hotel.phone = params.phone;
+                            hotel.admin = params.admin;
             
                             hotel.save((err, hotelSaved)=>{
                                 if (err) {
