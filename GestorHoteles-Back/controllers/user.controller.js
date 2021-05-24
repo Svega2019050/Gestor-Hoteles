@@ -90,7 +90,7 @@ function login(req, res){
             }
         });        
     }else{
-        return status(401).send({message: 'Porfavor Ingrese los datos Obligatorios'})
+        return res.status(401).send({message:'Porfavor Ingrese los datos Obligatorios'})
     }
 }
 
@@ -311,7 +311,7 @@ function getUsers(req, res){
             }else if(users){
                     return res.send({message: 'Usuarios: ', users})
             }else{
-                    return res.status(404).send({message: 'No hay registros'})
+                return res.status(404).send({message: 'No hay registros'})
             }
         });
     }

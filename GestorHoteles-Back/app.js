@@ -4,6 +4,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var userRoutes = require('./routes/user.route');
 var hotelRoute = require('./routes/hotel.route');
+var roomRoute = require('./routes/room.route');
+var reservationRoute = require('./routes/reservation.route');
 
 
 var app = express();
@@ -21,5 +23,7 @@ app.use((req, res, next) => {
 
 app.use('/api', userRoutes);
 app.use('/api',hotelRoute);
+app.use('/api',roomRoute);
+app.use('/api',reservationRoute);
 
 module.exports = app;

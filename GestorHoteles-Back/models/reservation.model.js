@@ -7,5 +7,8 @@ var reservationShema = Schema ({
     numberRoom: String,
     dateinit: String,
     dateEnd: String,
-    price: String,
+    supTotal: String,
+    total: String,
 });
+
+module.exports = mongoose.model('reservation',reservationShema);

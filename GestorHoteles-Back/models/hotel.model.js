@@ -9,8 +9,8 @@ var hotelSchema = Schema({
     direction: String,
     phone: Number,
     admin: String,
-    room:[{type:Schema.ObjectId, ref:'room'}]
-
+    room:[{type:Schema.ObjectId, ref:'room'}],
+    reservation:[{type:Schema.ObjectId, ref:'reservation'}]
 });
 
 module.exports = mongoose.model('hotel',hotelSchema);
