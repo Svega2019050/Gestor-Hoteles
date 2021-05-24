@@ -102,7 +102,7 @@ function saveUser (req, res){
     if (params.name && params.username && params.email && params.password) {
         User.findOne({username: params.username.toLowerCase()},(err, userFind)=>{
             if (err) {
-                return res.status(500).send({message: ' Error General'});
+                return res.status(500).send({message: 'Error General'});
             } else if (userFind) {
                 return res.send({message: 'Nombre de Usuario ya en Uso'})
             } else {

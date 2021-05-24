@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var reservationShema = Schema ({
-    number: Number,  
+    number: Number, 
     total: String,
 });
 
