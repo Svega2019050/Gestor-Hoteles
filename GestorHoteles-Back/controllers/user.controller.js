@@ -155,20 +155,7 @@ function updateUser(req, res){
                     if (err) {
                         return res.status(500).send({message: ' Error General'});
                     } else if(userFind){
-                        User.username = update.username.toLowerCase();
-                        if (userFind._id == userId) {
-                            User.findByIdAndUpdate(userId, update,{username:update.username},{new:true},(err, userUpdate)=>{
-                                if (err) {
-                                    return res.status(500).send({message: ' Error General'});
-                                } else if(userUpdate){
-                                    return res.send({message:'Usuario Actualizado Correctamente',userUpdate});
-                                }else{
-                                    return res.status(401).send({message: 'No se pudo actualizar el usuario'});
-                                }
-                            });
-                        } else {
-                            return res.status(401).send({message:'Nombre de Usuario ya esta en Uso'});
-                        }
+                        return res.status(401).send({message:'Nombre de Usuario ya esta en Uso'});
                     }else{
                         User.findByIdAndUpdate(userId, update,{new:true},(err, userUpdate)=>{
                             if (err) {

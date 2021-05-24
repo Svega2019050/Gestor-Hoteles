@@ -11,57 +11,58 @@ function saveReservation(req, res) {
     var reservation = new Reservation();
     var params = req.body;
 
-    if (params.number) {
-        hotelModel.findOne({_id: hotelId},(err,hotelFind)=>{
-            if (err) {
-                return res.status(500).send({message: 'Error General al verificar Hotel'});
-            } else if(hotelFind){
-                Reservation.findOne({number: params.number},(err,reservationFind)=>{
-                    if (err) {
-                        return res.status(500).send({message: 'Error General'});
-                    }else if (reservationFind) {
-                        return res.send({message: 'Habitación No Disponible'});
-                    } else {
-                        Room.findOne({numberRoom: params.number}).exec((err,roomFind)=>{
-                            if (err) {
-                                return res.status(500).send({message: 'Error General'});
-                            }else if(!roomFind){
-                                return res.status(500).send({message: 'No existe Habitación'});
-                            }else{
-                                reservation.number = params.number;
-                                reservation.save((err,reservationSaved)=>{
-                                    if (err) {
-                                        return res.status(500).send({message: 'Error General'});
-                                    }else if (reservationSaved) {
-                                        hotelModel.findByIdAndUpdate(hotelId,{$push:{reservation: reservationSaved._id}},
-                                            {new:true},(err,reservationPush)=>{
-                                                if (err) {
-                                                    return res.status(500).send({message: 'Error General'});
-                                                }else if (reservationPush) {
-                                                    return res.send({message:'Reservación Exitosa',reservationPush});
-                                                } else {
-                                                    return res.status(500).send({message: 'Error al hacer Reservación'});
-                                                }
-                                        });     
-                                    } else {
-                                        return res.status(500).send({message: 'No se pudo hacer la reservación'});
-                                    }
-                                });     
-                            }
-                        });
-                    }
-                });
-
-            }else{
-                return res.status(401).send({message: 'Hotel No Encontrado'});
-            }
-        });
-    } else {
-        return res.status(500).send({message: 'Falta de Datos para agregar Reservación'});
+    if (userId != req.user.sub) {
+        return res.status(401).send({message: 'No tiene permiso para realizar esta acción '});
+    }else{
+        if (params.number) {
+            hotelModel.findOne({_id: hotelId},(err,hotelFind)=>{
+                if (err) {
+                    return res.status(500).send({message: 'Error General al verificar Hotel'});
+                } else if(hotelFind){
+                    Reservation.findOne({number: params.number},(err,reservationFind)=>{
+                        if (err) {
+                            return res.status(500).send({message: 'Error General'});
+                        }else if (reservationFind) {
+                            return res.send({message: 'Habitación No Disponible'});
+                        } else {
+                            Room.findOne({numberRoom: params.number}).exec((err,roomFind)=>{
+                                if (err) {
+                                    return res.status(500).send({message: 'Error General'});
+                                }else if(!roomFind){
+                                    return res.status(500).send({message: 'No existe Habitación'});
+                                }else{
+                                    reservation.number = params.number;
+                                    reservation.save((err,reservationSaved)=>{
+                                        if (err) {
+                                            return res.status(500).send({message: 'Error General'});
+                                        }else if (reservationSaved) {
+                                            hotelModel.findByIdAndUpdate(hotelId,{$push:{reservation: reservationSaved._id}},
+                                                {new:true},(err,reservationPush)=>{
+                                                    if (err) {
+                                                        return res.status(500).send({message: 'Error General'});
+                                                    }else if (reservationPush) {
+                                                        return res.send({message:'Reservación Exitosa',reservationPush});
+                                                    } else {
+                                                        return res.status(500).send({message: 'Error al hacer Reservación'});
+                                                    }
+                                            });     
+                                        } else {
+                                            return res.status(500).send({message: 'No se pudo hacer la reservación'});
+                                        }
+                                    });     
+                                }
+                            });
+                        }
+                    });
+    
+                }else{
+                    return res.status(401).send({message: 'Hotel No Encontrado'});
+                }
+            });
+        } else {
+            return res.status(500).send({message: 'Falta de Datos para agregar Reservación'});
+        }
     }
-
-
-   
 }
 
 function removeReservation(req,res) {

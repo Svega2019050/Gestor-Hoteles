@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand text-icon" routerLink="">
+        <img src="../../../assets/img/Hotel.png" alt="Icon" width="60" height="50" class="d-inline-block align-text-top">
+        <div class="hit-the-floor">GDH</div>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" *ngIf="token == null" aria-current="page" routerLink="/home" routerLinkActivate="active">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"  *ngIf="token == null" routerLink="/login" routerLinkActivate="active">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"  *ngIf="token == null" routerLink="/register" routerLinkActivate="active">Register</a>
+          </li>
+          
+          <li class="nav-item dropdown" *ngIf="token != null || token != undefined">
+            <!-- borrar los "bs"-->
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            More options
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" routerLink="/user" routerLinkActivate="active">Editar Cuenta</a></li>
+            <li *ngIf="user.role == 'ROLE_ADMIN'"><a class="dropdown-item" routerLink="/listUsers">List Users</a></li>
+            <li *ngIf="user.role == 'ROLE_ADMIN'"><a class="dropdown-item" routerLink="/saveUser">Save User</a></li>              <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" (click)="logOut()">Cerrar sesión</a></li>
+          </ul>
+        </li>    
+        </ul>
+        <ul class="navbar-nav ml-auto" *ngIf="token != null">
+     
+            <li class="nav-item">
+              <a  routerLink="/user" routerLinkActivate="active" class="nav-link">{{user.username}}<img *ngIf="user.image" class="rounded-circle" id="imgUser" src="{{uri+'getImage/'+user.image}}" alt="user image"></a>
+            </li>
+            <li>
+              
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>

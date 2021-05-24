@@ -1,0 +1,19 @@
+<body class="text-center container">
+    <form class="form-signin" #login="ngForm" (ngSubmit)="onSubmit()">
+        <img width="100" height="100" src="../../../assets/img/logo Login.png" alt="Logo Hotel">
+       
+        <div class="form-group text-left">
+            <label for="inputUsername">Username:</label>
+            <input [(ngModel)]="user.username" name="username" class="form-control" type="text" id="inputUsername" placeholder="Enter username" required>    
+            
+        </div>
+       
+        <div class="form-group text-left">
+            <label for="inputPassword">Password:</label>
+            <input [(ngModel)]="user.password" name="password" class="form-control" type="password" id="inputPassword" placeholder="Enter password" required>
+        </div>
+        
+        <button class="btn btn-success btn-md" type="submit" [disabled]="!login.form.valid">Aceptar</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+    </form>
+</body>

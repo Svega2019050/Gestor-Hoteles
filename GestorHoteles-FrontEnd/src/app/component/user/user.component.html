@@ -1,0 +1,99 @@
+<body class="text-center container" >
+    <form class="form-signin" #userUpdate="ngForm" (ngSubmit)="onSubmit()">
+        <h1>{{title}}</h1>
+        <img *ngIf="user.image" class="rounded-circle"  width="100" height="100" src="{{uri+'getImage/'+user.image}}" alt="Imagen de una agenda">
+        <h1 class="h3 mb-3 font-weight-normal">Update your account here</h1>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="inputName">Name</label>
+            <input [(ngModel)]="user.name" name="name" #name="ngModel" class="form-control" id="inputName" type="text" placeholder="your name" required>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputphone">Phone</label>
+          <input [(ngModel)]="user.phone" #phone="ngModel" name="phone" class="form-control" type="text" id="inputphone" placeholder="phone" >
+      </div> 
+            
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputUsername">Username</label>
+                <input [(ngModel)]="user.username" #username="ngModel" name="username" class="form-control" type="text" id="inputUsername" placeholder="username" required>
+            </div>
+            <div class="from-group col-md-6">
+                <label for="inputLastname">Lastname</label>
+                <input [(ngModel)]="user.lastname" #lastname="ngModel" name="password" class="form-control" type="text" id="inputLastname" placeholder="lastname">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail">Email</label>
+            <input [(ngModel)]="user.email" #email="ngModel" name="email" class="form-control" type="email" id="inputEmail" placeholder="email" required>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="check">
+                <label class="form-check-label" for="check">I accept the terms and conditions</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success col-lg-3 mx-2" [disabled]="!userUpdate.form.valid">
+            Update
+        </button>
+        <button type="button" class="btn btn-danger col-lg-3 mx-2" data-toggle="modal" data-target="#exampleModal">
+            Delete Account
+        </button>
+        <button type="button" class="btn btn-primary col-lg-3 mx-2" data-toggle="modal" data-target="#myModal">
+            Upload Image
+        </button>
+    </form>
+    <!-- MODAL PARA ELIMINAR CUENTA -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Danger Zone!</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h3>This action is irreversible!</h3>
+              <span>Enter your password to continue</span>
+              <form #formRemove="ngForm">
+                <label for="passwordRemove"></label>
+                <input [(ngModel)]="possiblePass" type="password" name="possiblePass" id="passwordRemove" required>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" data-dismiss="modal" class="btn btn-danger" (click)="deleteUser()" [disabled]="!formRemove.form.valid">I'm Sure</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- MODAL PARA SUBIR IMAGEN DE USUARIO -->
+      <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="myModalLabel">User image</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h3>Upload your image</h3>
+              <form #formUpload="ngForm">
+                <label for="inputImage"></label>
+                <input type="file" name="image" id="inputImage" (change)="fileChange($event)" required>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" data-dismiss="modal" class="btn btn-primary" (click)="uploadImage()">Upload</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+  </body>
