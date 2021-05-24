@@ -6,7 +6,8 @@ var mdAuth = require('../middlewares/authenticated');
 
 var api = express.Router();
 
-api.put('/:hotelId/saveRoom/:userId',[mdAuth.ensureAuth,mdAuth.ensureAuthAdmin],roomController.saveRoom);
+api.put('/:hotelId/saveRoom/:userId',[mdAuth.ensureAuth],roomController.saveRoom);
+
 api.put('/:hotelId/upadateRoom/:roomId/:userId',[mdAuth.ensureAuth,mdAuth.ensureAuthAdmin],roomController.upadateRoom);
 api.put('/:hotelId/removeRoom/:roomId/:userId',[mdAuth.ensureAuth,mdAuth.ensureAuthAdmin],roomController.removeRoom);
 api.get('/getRoom',roomController.getRoom);

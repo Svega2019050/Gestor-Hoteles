@@ -23,3 +23,13 @@
     border-radius: 1rem 1rem 0 0;
     border: .5rem solid #2C3E50;
 }
+.room{
+    margin-top: 0.5rem;
+}
+
+.btn-body{
+    text-align: center;
+}
+.saveHotelRoom{
+    margin-top: 1rem;
+}

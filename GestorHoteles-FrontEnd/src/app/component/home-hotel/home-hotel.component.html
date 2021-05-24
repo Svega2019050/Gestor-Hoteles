@@ -1,6 +1,6 @@
 <div class="container">
   <div class="hit-the-floor">Hoteles</div>
-  <div class="card" *ngFor="let hotel of hotels" style="width: 18rem;">
+  <div class="card" *ngFor="let hotel of hotels " style="width: 18rem;">
     <div class="card-second">
       <img src="../../../assets/img/Hotel.png" class="card-img-top" alt="...">
     </div>
@@ -8,11 +8,105 @@
       <h5 class="card-title text-center">{{hotel.name}}</h5>
       <h6 class="card-subtitle">{{hotel.description}}</h6>
       <p class="card-text">{{hotel.direction}}  | {{user.username}} </p>
-      <a href="#" class="btn btn-primary">Ver Hotel</a>
+      <div class="btn-body">
+        <a class="btn btn-primary" (click)="obtenerData(hotel)"  data-toggle="modal" data-target="#updateModal">Update</a>
+        <a class="btn btn-danger mx-2" (click)="obtenerData(hotel)" data-toggle="modal" data-target="#removeModal">Remove</a>
+        <a class="btn btn-success saveHotelRoom" (click)="saveHotelRoom(hotel)" *ngIf="token == null" aria-current="page" routerLink="/saveRoom" routerLinkActivate="active">Crear Habitación</a>
+
+      </div>
     </div>
   </div>
 
- 
+  <!--Actualizar-->
+  <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateModalLabel">Update</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="form-signin" >
+            <h1 class="h3 mb-3 font-weight-normal">Actualizar Hotel</h1>
+
+            <div class="form-group">
+              <label for="inputName">Name</label>
+              <input [(ngModel)]="hotelSelected.name" name="name" #name="ngModel" class="form-control" id="inputName" type="text" placeholder="your name" required>
+            </div>
+
+            <div class="form-group">
+              <label for="inputdescription">Description</label>
+              <input [(ngModel)]="hotelSelected.description" name="description" #description="ngModel" class="form-control" id="inputdescription" type="text" placeholder="description" required>
+            </div>
+
+            <div class="form-group">
+              <label for="inputdirection">direction</label>
+              <input [(ngModel)]="hotelSelected.direction" name="direction" #direction="ngModel" class="form-control" id="inputdirection" type="text" placeholder="direction" required>
+            </div>
+
+            <div class="form-group">
+              <label for="inputphone">phone</label>
+              <input [(ngModel)]="hotelSelected.phone" name="phone" #phone="ngModel" class="form-control" id="inputphone" type="text" placeholder="phone" required>
+            </div>
+
+            <div class="form-group">
+              <label for="inputadmin">admin</label>
+              <input [(ngModel)]="hotelSelected.admin" name="admin" #admin="ngModel" class="form-control" id="inputadmin" type="text" placeholder="admin" required>
+            </div>
+
+            
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="updateHotel()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Eliminar-->
+  <div class="modal fade" id="removeModal" tabindex="-1" aria-labelledby="removeModallLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="removeModallLabel">Peligro!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h4 class="text-center">{{hotelSelected.name}}</h4>
+          <span>Eliminar Hotel</span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="removeHotel()">Esta seguro</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!--Agregar Habitación-->
+  <div class="modal fade" id="agregarRoom" tabindex="-1" aria-labelledby="agregarRoomLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="agregarRoomLabel">Agregar Habitación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <app-save-room></app-save-room>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 

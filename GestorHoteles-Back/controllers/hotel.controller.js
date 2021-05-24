@@ -80,7 +80,7 @@ function updateHotel(req, res){
                         if (err) {
                             return res.status(500).send({message: ' Error General'});
                         } else if(userFind){
-                            Hotel.findOne({name: params.name.toLowerCase()}, (err, hotelFind)=>{
+                            Hotel.findOne({name: update.name.toLowerCase()}, (err, hotelFind)=>{
                                 if (err) {
                                     return res.status(500).send({message: ' Error General'});
                                 }else if (hotelFind) {
@@ -145,23 +145,15 @@ function removeHotel (req, res){
                         if (err) {
                             return res.status(500).send({message: ' Error General'});
                         } else if (hotelFind) {
-                            bcrypt.compare(params.password, hotelPull.password, (err, checkPassword)=>{
+                            Hotel.findByIdAndRemove(hotelId, (err, HotelRemoved)=>{
                                 if(err){
-                                    return res.status(500).send({message: 'Error general al verificar contraseña'});
-                                }else if(checkPassword){
-                                    Hotel.findByIdAndRemove(hotelId, (err, HotelRemoved)=>{
-                                        if(err){
-                                            return res.status(500).send({message: 'Error general al eliminar'});
-                                        }else if(HotelRemoved){
-                                            return res.send({message: 'Hotel eliminado', HotelRemoved});
-                                        }else{
-                                            return res.status(403).send({message: 'Hotel no eliminado'});
-                                        }
-                                    });
+                                    return res.status(500).send({message: 'Error general al eliminar'});
+                                }else if(HotelRemoved){
+                                    return res.send({message: 'Hotel eliminado', HotelRemoved});
                                 }else{
-                                    return res.status(401).send({message: 'Contraseña incorrecta, no puedes eliminar un hotel sin contraseña'});
+                                    return res.status(403).send({message: 'Hotel no eliminado'});
                                 }
-                            })
+                            });
       
                         }else {
                             return res.status(401).send({message: 'Hotel No Encontrado'});

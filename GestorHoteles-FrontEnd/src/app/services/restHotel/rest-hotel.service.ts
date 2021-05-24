@@ -41,7 +41,7 @@ export class RestHotelService {
       'Authorization': this.restUser.getToken()
     })
     let params = JSON.stringify(hotel);
-    return this.http.put(this.uri+idUser+'/savedHotel', params, )
+    return this.http.put(this.uri+idUser+'/savedHotel', params,{headers:headers} )
     .pipe(map(this.extractData))
   }
 

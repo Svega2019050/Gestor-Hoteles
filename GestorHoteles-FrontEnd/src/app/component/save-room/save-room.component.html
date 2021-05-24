@@ -1,0 +1,22 @@
+<div class="container">
+  <h1 class="text-center">Crear Habitación</h1>
+  <hr>
+  <div class="wrapper fadeInDown">
+      <div id="formContent">
+        <div class="fadeIn first">
+          <img src="../../../assets/img/hotel3.jpg" width="200" height="200" class="myClass" alt=".." />
+        </div>
+    
+        <!-- Login Form -->
+        <form (ngSubmit)="onSubmit(saveRoom)" #saveRoom="ngForm">
+          <input [(ngModel)]="room.beds" type="number" id="beds" class="fadeIn second" name="beds" placeholder="beds" required>
+          <input [(ngModel)]="room.price" type="number" id="price" class="fadeIn second" name="price" placeholder="price" required>
+          <input [(ngModel)]="room.description" type="text" id="description" class="fadeIn second" name="description" placeholder="description" required>
+          <input [(ngModel)]="room.capacity" type="number" id="capacity" class="fadeIn second" name="capacity" placeholder="capacity" required>
+          <input [(ngModel)]="room.numberRoom" type="number" id="number" class="fadeIn second" name="number" placeholder="number" required>
+          <input type="submit" class="fadeIn fourth" value="Guardar Habitación" [disabled]="!saveRoom.form.valid">
+        </form>
+    
+      </div>
+    </div>
+</div>

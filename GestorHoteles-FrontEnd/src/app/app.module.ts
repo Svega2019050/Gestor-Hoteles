@@ -17,6 +17,7 @@ import { NotFoundComponent } from './component/not-found/not-found.component';
 import { ListUserComponent } from './component/list-user/list-user.component';
 import { SearchPipe } from './pipes/search.pipe';
 import { SaveHotelComponent } from './component/save-hotel/save-hotel.component';
+import { SaveRoomComponent } from './component/save-room/save-room.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { SaveHotelComponent } from './component/save-hotel/save-hotel.component'
     NotFoundComponent,
     ListUserComponent,
     SearchPipe,
-    SaveHotelComponent
+    SaveHotelComponent,
+    SaveRoomComponent
 
 
   ],

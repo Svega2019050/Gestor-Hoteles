@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RestUserService } from '../../services/restUser/rest-user.service';
 import { Hotel } from '../../models/hotel';
 import {RestHotelService} from '../../services/restHotel/rest-hotel.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home-hotel',
   templateUrl: './home-hotel.component.html',
@@ -13,13 +14,15 @@ export class HomeHotelComponent implements OnInit {
   hotelSelected: Hotel;
 
   constructor(private restUser:RestUserService, 
-    private resthotel:RestHotelService) { }
+    private resthotel:RestHotelService,
+    private router:Router) { }
 
   ngOnInit(): void {
     this.hotelSelected = new Hotel('','','','','','',[],[]);
     this.user = this.restUser.getUser();
     this.hotels = this.user.hotels;
-    console.log(this.hotels)
+    console.log(this.hotels);
+    localStorage.removeItem('selectedHotel');
     this.listHotels();
 
   }
@@ -64,7 +67,13 @@ export class HomeHotelComponent implements OnInit {
       } else {
         alert(res.message)
       }
+      this.listHotels();
     })
     error => alert(error.error.message)
+  }
+
+  saveHotelRoom(hotel){
+    localStorage.setItem('selectedHotel',JSON.stringify(hotel));
+    console.log("hotel", hotel);
   }
 }

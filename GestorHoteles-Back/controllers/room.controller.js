@@ -28,7 +28,7 @@ function saveRoom(req, res) {
                             }else{
                                 room.beds = params.beds;
                                 room.price = params.price;
-                                room.description = params.description.toLowerCase();
+                                room.description = params.description;
                                 room.capacity = params.capacity;
                                 room.numberRoom = params.numberRoom;
     

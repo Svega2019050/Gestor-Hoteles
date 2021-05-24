@@ -22,6 +22,7 @@ h2 {
 .wrapper {
     display: flex;
     align-items: center;
+    text-align: center;
     flex-direction: column; 
     justify-content: center;
     width: 100%;
@@ -52,9 +53,7 @@ h2 {
     border-radius: 0 0 10px 10px;
 }
 
-.fadeIn img{
-    text-align: center;
-}
+
 
 /* TABS */
 
@@ -106,7 +105,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
 }
 
 input[type=text], input[type=number] {
-    background-color: #f6f6f6;
+    background-color: #c2c2c2;
     border: none;
     color: #0d0d0d;
     padding: 15px 32px;
