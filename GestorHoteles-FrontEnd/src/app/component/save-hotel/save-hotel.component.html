@@ -1,0 +1,23 @@
+<div class="container">
+  <h1 class="text-center">Crear Hotel</h1>
+  <hr>
+  <div class="wrapper fadeInDown">
+      <div class="formContent">
+
+        <div class="fadeIn first">
+          <img src="../../../assets/img/Hotel.png" width="100" height="100" class="myClass" alt="..." />
+        </div>
+
+        <form (ngSubmit)="onSubmit(saveHotel)" #saveHotel="ngForm">
+          <input [(ngModel)]="hotel.name" type="text" id="name" class="fadeIn second" name="name" placeholder="name" required>
+          <input [(ngModel)]="hotel.description" type="text" id="description" class="fadeIn third" name="description" placeholder="description" required>
+          <input [(ngModel)]="hotel.direction" type="text" id="direction" class="fadeIn third" name="direction" placeholder="direction" required>
+          <input [(ngModel)]="hotel.phone" type="number" id="phone" class="fadeIn third" name="phone" placeholder="phone" required>
+          <input [(ngModel)]="hotel.admin" type="text" id="admin" class="fadeIn third" name="admin" placeholder="admin" required>
+          <input type="submit" class="fadeIn fourth" value="Guardar Hotel" [disabled]="!saveHotel.form.valid">
+        </form>
+    
+      </div>
+  </div>
+  
+</div>

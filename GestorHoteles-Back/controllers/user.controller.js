@@ -287,22 +287,16 @@ function search(req, res){
 }
 
 function getUsers(req, res){
-    var userId = req.params.userId;
 
-    if (userId != req.user.sub) {
-        return res.status(401).send({message: 'No tiene permiso para realizar esta acción '});
-    }else{
-        User.find({}).populate('hotel').exec((err, users)=>{
+    User.find({}).populate('contacts').exec((err, users)=>{
             if(err){
                     return res.status(500).send({message: 'Error general en el servidor'})
             }else if(users){
                     return res.send({message: 'Usuarios: ', users})
             }else{
-                return res.status(404).send({message: 'No hay registros'})
+                    return res.status(404).send({message: 'No hay registros'})
             }
-        });
-    }
-
+        })
 }
 
 /*Exports*/

@@ -11,7 +11,6 @@ import { CONNECTION } from '../../services/global.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  public title: string;
   public user:User;
   public token;
   public possiblePass;
@@ -21,7 +20,6 @@ export class UserComponent implements OnInit {
   constructor(private restUser:RestUserService, 
               private router: Router,
               private uploadUser: UploadUserService) { 
-    this.title = 'Your Account';
     this.possiblePass = '';
     this.user = this.restUser.getUser();
     this.token = this.restUser.getToken();
@@ -35,7 +33,7 @@ export class UserComponent implements OnInit {
     delete this.user.password;
     delete this.user.role;
     this.restUser.updateUser(this.user).subscribe((res:any)=>{
-      if(res.userUpdated){
+      if(res.updateUser){
         delete res.userUpdated.password;
         localStorage.setItem('user', JSON.stringify(res.userUpdated));
         alert(res.message);

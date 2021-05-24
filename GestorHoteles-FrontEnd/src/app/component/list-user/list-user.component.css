@@ -1,0 +1,9 @@
+#cards{
+    margin: 1rem;
+}
+
+.myWidth{
+    width: 18rem;
+    display: inline-block;
+    margin: 1.25rem;
+}

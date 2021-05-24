@@ -14,6 +14,9 @@ import { RestUserService } from './services/restUser/rest-user.service';
 import { UploadUserService } from './services/upload-user/upload-user.service';
 import { HomeHotelComponent } from './component/home-hotel/home-hotel.component';
 import { NotFoundComponent } from './component/not-found/not-found.component';
+import { ListUserComponent } from './component/list-user/list-user.component';
+import { SearchPipe } from './pipes/search.pipe';
+import { SaveHotelComponent } from './component/save-hotel/save-hotel.component';
 
 
 @NgModule({
@@ -26,6 +29,9 @@ import { NotFoundComponent } from './component/not-found/not-found.component';
     LoginComponent,
     HomeHotelComponent,
     NotFoundComponent,
+    ListUserComponent,
+    SearchPipe,
+    SaveHotelComponent
 
 
   ],

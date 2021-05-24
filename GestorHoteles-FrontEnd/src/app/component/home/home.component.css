@@ -1,3 +1,12 @@
 img {
     max-height: 500rem;
 }
+
+.card{
+    align-items: center;
+    display: inline-block;
+    margin: 1rem;
+}
+.container{
+    margin-bottom: 5rem;
+}

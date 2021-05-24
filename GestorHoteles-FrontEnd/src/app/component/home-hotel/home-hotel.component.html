@@ -1,1 +1,18 @@
-<p>home-hotel works!</p>
+<div class="container">
+  <div class="hit-the-floor">Hoteles</div>
+  <div class="card" *ngFor="let hotel of hotels" style="width: 18rem;">
+    <div class="card-second">
+      <img src="../../../assets/img/Hotel.png" class="card-img-top" alt="...">
+    </div>
+    <div class="card-body">
+      <h5 class="card-title text-center">{{hotel.name}}</h5>
+      <h6 class="card-subtitle">{{hotel.description}}</h6>
+      <p class="card-text">{{hotel.direction}}  | {{user.username}} </p>
+      <a href="#" class="btn btn-primary">Ver Hotel</a>
+    </div>
+  </div>
+
+ 
+</div>
+
+

@@ -2,6 +2,13 @@
     width: 35px;
     height: 35px;
 }
+.nav-item a{
+    color: #fff;
+    font-size: 1em;
+}
+.nav-item a:hover{
+    color: rgb(192, 181, 181);
+}
 
 .navbar-collapse {
     flex-grow: inherit;
@@ -17,4 +24,11 @@ h1{
 }
 .hit-the-floor {
     font-size: 2.5vw;
+}
+.hit-the-floor {
+    color: rgb(255, 255, 255);
+    text-shadow: 0 1px 0 rgb(63, 63, 63), 0 2px 0 #272727, 0 3px 0 rgb(31, 30, 30), 0 4px 0 #1f1d1d, 0 5px 0 #aaa;
+}
+.dropdown-menu a {
+    color: #1f1d1d;
 }
