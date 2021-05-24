@@ -8,7 +8,7 @@ var roomSchema = Schema({
     price: String,
     description: String,
     capacity: Number,
-    numberRoom: Number,
+    numberRoom: Number
 });
 
 module.exports = mongoose.model('room', roomSchema);
