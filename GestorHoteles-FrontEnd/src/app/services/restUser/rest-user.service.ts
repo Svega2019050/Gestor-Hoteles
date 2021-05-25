@@ -64,7 +64,7 @@ export class RestUserService {
 
   saverUserByAdmin(user, idAdmin){
     let params = JSON.stringify(user);
-    return this.http.post(this.uri+'saveUserOnlyAdmin/'+idAdmin, params, this.httpOptionsAuth)
+    return this.http.post(this.uri+'saveUserByAdmin/'+idAdmin, params, this.httpOptionsAuth)
       .pipe(map(this.extractData))
   }
 
