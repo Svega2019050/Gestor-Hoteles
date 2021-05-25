@@ -9,6 +9,7 @@ import { NotFoundComponent } from './component/not-found/not-found.component';
 import { RegisterComponent } from './component/register/register.component';
 import { SaveHotelComponent } from './component/save-hotel/save-hotel.component';
 import { SaveRoomComponent } from './component/save-room/save-room.component';
+import { SaveUserComponent } from './component/save-user/save-user.component';
 import { UserComponent } from './component/user/user.component';
 import { AdminGuard } from './guards/admin.guard';
 
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'homeHotel',component: HomeHotelComponent},
   {path: 'listUsers', canActivate:[AdminGuard], component: ListUserComponent},
   {path: 'saveHotel', canActivate:[AdminGuard], component: SaveHotelComponent},
+  {path: 'saveUser', canActivate: [AdminGuard], component: SaveUserComponent},
   {path: 'saveRoom', component: SaveRoomComponent},
   {path: 'user', component: UserComponent},
   {path: 'not-Found', component: NotFoundComponent},

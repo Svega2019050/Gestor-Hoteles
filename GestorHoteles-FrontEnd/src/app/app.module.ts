@@ -18,6 +18,7 @@ import { ListUserComponent } from './component/list-user/list-user.component';
 import { SearchPipe } from './pipes/search.pipe';
 import { SaveHotelComponent } from './component/save-hotel/save-hotel.component';
 import { SaveRoomComponent } from './component/save-room/save-room.component';
+import { SaveUserComponent } from './component/save-user/save-user.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { SaveRoomComponent } from './component/save-room/save-room.component';
     ListUserComponent,
     SearchPipe,
     SaveHotelComponent,
-    SaveRoomComponent
+    SaveRoomComponent,
+    SaveUserComponent
 
 
   ],
