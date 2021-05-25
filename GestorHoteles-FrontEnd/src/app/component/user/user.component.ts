@@ -39,11 +39,12 @@ export class UserComponent implements OnInit {
         alert(res.message);
       }else{
         alert(res.message);
-        this.user = this.restUser.getUser();
+        localStorage.setItem('user', JSON.stringify(this.user))
       }
     },
     error=> alert(error.error.message))
   }
+
 
   deleteUser(){
     this.restUser.deleteUser(this.user._id, this.possiblePass).subscribe((res:any)=>{
