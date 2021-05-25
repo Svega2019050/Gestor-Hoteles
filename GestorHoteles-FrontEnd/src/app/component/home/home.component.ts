@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
     private resthotel:RestHotelService) { }
 
   ngOnInit(): void {
-    this.hotelSelected = new Hotel('','','','','','',[],[]);
+    this.hotelSelected = new Hotel('','','','','','','',[],[]);
     this.user = this.restUser.getUser();
     console.log(this.hotels)
     this.listHotels();

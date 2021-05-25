@@ -6,6 +6,7 @@ export class Hotel{
         public direction: String,
         public phone: string,
         public admin: String,
+        public image: string,
         public room:[],
         public reservation:[]
     ){}

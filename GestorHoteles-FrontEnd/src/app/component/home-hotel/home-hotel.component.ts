@@ -3,6 +3,7 @@ import { RestUserService } from '../../services/restUser/rest-user.service';
 import { Hotel } from '../../models/hotel';
 import {RestHotelService} from '../../services/restHotel/rest-hotel.service';
 import { Router } from '@angular/router';
+import { UploadHotelService } from 'src/app/services/upload-hotel/upload-hotel.service';
 @Component({
   selector: 'app-home-hotel',
   templateUrl: './home-hotel.component.html',
@@ -12,13 +13,16 @@ export class HomeHotelComponent implements OnInit {
   hotels:[];
   user;
   hotelSelected: Hotel;
+  public token;
+  public filesToUpload:Array<File>;
 
   constructor(private restUser:RestUserService, 
     private resthotel:RestHotelService,
-    private router:Router) { }
+    private router:Router,
+    private uploadHotel: UploadHotelService) { }
 
   ngOnInit(): void {
-    this.hotelSelected = new Hotel('','','','','','',[],[]);
+    this.hotelSelected = new Hotel('','','','','','','',[],[]);
     this.user = this.restUser.getUser();
     this.hotels = this.user.hotels;
     console.log(this.hotels);
@@ -70,6 +74,22 @@ export class HomeHotelComponent implements OnInit {
       this.listHotels();
     })
     error => alert(error.error.message)
+  }
+  uploadImage(){
+    this.uploadHotel.fileRequest(this.hotelSelected._id, [], this.filesToUpload, this.token, 'image')
+      .then((res:any)=>{
+        if(res.hotelSelected){
+          this.hotelSelected.image = res.hotelImage;
+          localStorage.setItem('hotel', JSON.stringify(this.hotelSelected))
+        }else{
+          alert(res.message)
+        }
+      })
+  }
+
+  fileChange(fileInput){
+    this.filesToUpload = <Array<File>>fileInput.target.files;
+    console.log(this.filesToUpload)
   }
 
   saveHotelRoom(hotel){

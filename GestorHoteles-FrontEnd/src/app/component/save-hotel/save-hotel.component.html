@@ -13,8 +13,8 @@
           <input [(ngModel)]="hotel.description" type="text" id="description" class="fadeIn third" name="description" placeholder="description" required>
           <input [(ngModel)]="hotel.direction" type="text" id="direction" class="fadeIn third" name="direction" placeholder="direction" required>
           <input [(ngModel)]="hotel.phone" type="number" id="phone" class="fadeIn third" name="phone" placeholder="phone" required>
-          <input [(ngModel)]="hotel.admin" type="text" id="admin" class="fadeIn third" name="admin" placeholder="admin" required>
-          <input type="submit" class="fadeIn fourth" value="Guardar Hotel" [disabled]="!saveHotel.form.valid">
+          <input [(ngModel)]="hotel.admin" type="number" id="admin" class="fadeIn third" name="admin" placeholder="admin" required>
+          <input type="submit" class="fadeIn fourth" value="Save contact" [disabled]="!saveHotel.form.valid">
         </form>
     
       </div>

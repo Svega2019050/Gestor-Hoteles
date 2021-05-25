@@ -9,6 +9,7 @@ var hotelSchema = Schema({
     direction: String,
     phone: Number,
     admin: String,
+    image: String,
     room:[{type:Schema.ObjectId, ref:'room'}],
     reservation:[{type:Schema.ObjectId, ref:'reservation'}]
 });
