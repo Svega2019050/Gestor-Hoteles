@@ -13,7 +13,7 @@ export class UploadHotelService {
     this.uri = CONNECTION.URI;
   }
 
-  fileRequest(idhotel:string, params: Array<string>, files: Array<File>, token:string, name:string){
+  fileRequest(idhotel:string, files: Array<File>, token:string, name:string){
     return new Promise((resolve, reject)=>{
       var formData: any = new FormData();
       var xhr = new XMLHttpRequest();

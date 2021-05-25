@@ -19,17 +19,19 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
-  <div class="container">
-    <div class="hit-the-floor">Hoteles</div>
-    <div class="card" *ngFor="let hotel of hotels" style="width: 18rem;">
-      <div class="card-second">
-        <img src="../../../assets/img/Hotel.png" class="card-img-top" alt="...">
-      </div>
-      <div class="card-body">
-        <h5 class="card-title text-center">{{hotel.name}}</h5>
-        <h6 class="card-subtitle">{{hotel.description}}</h6>
-        <p class="card-text">{{hotel.direction}}  | {{user.username}} </p>
-        <a href="#" class="btn btn-primary">Ver Hotel</a>
+
+<div class="container">
+  <div class="hit-the-floor">Hoteles</div>
+  <div class="card" *ngFor="let hotel of hotels " style="width: 18rem;">
+    <div class="card-second">
+      <img src="../../../assets/img/Hotel.png" class="card-img-top" alt="...">
+    </div>
+    <div class="card-body">
+      <h5 class="card-title text-center">{{hotel.name}}</h5>
+      <h6 class="card-subtitle">{{hotel.description}}</h6>
+      <p class="card-text">{{hotel.direction}}  | {{user.username}} </p>
+      <div class="btn-body">
+        <a class="btn btn-primary" (click)="obtenerData(hotel)"  data-toggle="modal" data-target="#updateModal">ver</a>
       </div>
     </div>
   </div>

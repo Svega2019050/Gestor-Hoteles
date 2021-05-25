@@ -10,10 +10,10 @@
 
         <form (ngSubmit)="onSubmit(saveHotel)" #saveHotel="ngForm">
           <input [(ngModel)]="hotel.name" type="text" id="name" class="fadeIn second" name="name" placeholder="name" required>
-          <input [(ngModel)]="hotel.description" type="text" id="description" class="fadeIn third" name="description" placeholder="description" required>
+          <textarea [(ngModel)]="hotel.description" type="text" id="description" class="fadeIn third" name="description" placeholder="description" required  rows="5"></textarea>
           <input [(ngModel)]="hotel.direction" type="text" id="direction" class="fadeIn third" name="direction" placeholder="direction" required>
           <input [(ngModel)]="hotel.phone" type="number" id="phone" class="fadeIn third" name="phone" placeholder="phone" required>
-          <input [(ngModel)]="hotel.admin" type="number" id="admin" class="fadeIn third" name="admin" placeholder="admin" required>
+          <input [(ngModel)]="hotel.admin" type="text" id="admin" class="fadeIn third" name="admin" placeholder="admin" required>
           <input type="submit" class="fadeIn fourth" value="Save contact" [disabled]="!saveHotel.form.valid">
         </form>
     

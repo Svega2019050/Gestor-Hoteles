@@ -12,7 +12,7 @@ import { UploadHotelService } from 'src/app/services/upload-hotel/upload-hotel.s
 export class HomeHotelComponent implements OnInit {
   hotels:[];
   user;
-  hotelSelected: Hotel;
+  public hotelSelected: Hotel;
   public token;
   public filesToUpload:Array<File>;
 
@@ -75,12 +75,14 @@ export class HomeHotelComponent implements OnInit {
     })
     error => alert(error.error.message)
   }
+
   uploadImage(){
-    this.uploadHotel.fileRequest(this.hotelSelected._id, [], this.filesToUpload, this.token, 'image')
+    this.uploadHotel.fileRequest(this.hotelSelected._id, this.filesToUpload, this.token, 'image')
       .then((res:any)=>{
         if(res.hotelSelected){
           this.hotelSelected.image = res.hotelImage;
-          localStorage.setItem('hotel', JSON.stringify(this.hotelSelected))
+          localStorage.setItem('user', JSON.stringify(this.uploadHotel))
+          console.log('message',this.hotelSelected)
         }else{
           alert(res.message)
         }

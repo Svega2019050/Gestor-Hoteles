@@ -1,5 +1,6 @@
 .container{
     margin-top: 2rem;
+    height: 80%;
     padding: 2rem;
     background: #eef2f3;  
     max-width: 95%;
@@ -16,4 +17,29 @@
     font-weight: bold;
     font-family: Helvetica;
     text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa;
+}
+
+.card{
+    color: #fff;
+    display: inline-block;
+    margin: 1.25rem;
+    align-items: center;
+    border-radius: 1rem;
+    background: #141E30;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.card-text,.card-subtitle{
+    padding-top: 2rem ;
+}
+
+.card-second{
+    background: #2C3E50;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #4CA1AF, #2C3E50);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #4CA1AF, #2C3E50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    padding: .5rem;
+    border-radius: 1rem 1rem 0 0;
+    border: .5rem solid #2C3E50;
 }

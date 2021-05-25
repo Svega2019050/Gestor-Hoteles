@@ -71,7 +71,7 @@ h2.active {
 
 /* FORM TYPOGRAPHY*/
 
-input[type=button], input[type=submit], input[type=reset]  {
+input[type=button], input[type=submit], input[type=reset],textarea[type=button],textarea[type=submit],textarea[type=reset]  {
     background-color: #56baed;
     border: none;
     color: white;
@@ -105,7 +105,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
     transform: scale(0.95);
 }
 
-input[type=text], input[type=number] {
+input[type=text], input[type=number],textarea[type=text], textarea[type=number]  {
     background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;
@@ -124,6 +124,10 @@ input[type=text], input[type=number] {
     transition: all 0.5s ease-in-out;
     -webkit-border-radius: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;
+}
+
+textarea{
+    resize: none;
 }
 
 input[type=text]:focus input[type=number]:focus {

@@ -1,28 +1,4 @@
 
-.card{
-    color: #fff;
-    display: inline-block;
-    margin: 1.25rem;
-    align-items: center;
-    border-radius: 1rem;
-    background: #141E30;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-}
-
-.card-text,.card-subtitle{
-    padding-top: 2rem ;
-}
-
-.card-second{
-    background: #2C3E50;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #4CA1AF, #2C3E50);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #4CA1AF, #2C3E50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    padding: .5rem;
-    border-radius: 1rem 1rem 0 0;
-    border: .5rem solid #2C3E50;
-}
 .room{
     margin-top: 0.5rem;
 }

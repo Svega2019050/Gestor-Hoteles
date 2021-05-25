@@ -2,7 +2,6 @@
 
 const Hotel = require('../models/hotel.model');
 const User = require('../models/user.model');
-const jwt = require('../services/jwt');
 const fs = require('fs');
 const path = require('path');
 
@@ -204,7 +203,7 @@ function uploadImageHotel(req, res){
                     if(err){
                         res.status(500).send({message: 'Error general'});
                     }else if(hotelUpdated){
-                        res.send({hotel: hotelUpdated, userImage:hotelUpdated.image});
+                        res.send({hotel: hotelUpdated, hotelImage:hotelUpdated.image});
                     }else{
                         res.status(400).send({message: 'No se ha podido actualizar'});
                     }

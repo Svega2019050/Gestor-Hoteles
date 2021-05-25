@@ -44,21 +44,4 @@ export class SaveHotelComponent implements OnInit {
     error=> alert(error.error.message))
   }
 
-  uploadImage(){
-    this.uploadHotel.fileRequest(this.hotel._id, [], this.filesToUpload, this.token, 'image')
-      .then((res:any)=>{
-        if(res.hotel){
-          this.hotel.image = res.hotelImage;
-          localStorage.setItem('hotel', JSON.stringify(this.hotel))
-        }else{
-          alert(res.message)
-        }
-      })
-  }
-
-  fileChange(fileInput){
-    this.filesToUpload = <Array<File>>fileInput.target.files;
-    console.log(this.filesToUpload)
-  }
-
 }

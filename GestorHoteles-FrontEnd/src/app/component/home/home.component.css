@@ -10,3 +10,13 @@ img {
 .container{
     margin-bottom: 5rem;
 }
+
+.btn-body{
+    text-align: center;
+}
+
+
+.btn-body a{
+    padding: 0 30%;
+    font-size: 1rem;
+}
