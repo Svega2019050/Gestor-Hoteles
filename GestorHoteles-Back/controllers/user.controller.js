@@ -6,6 +6,37 @@ const jwt = require('../services/jwt');
 const fs = require('fs');
 const path = require('path');
 
+
+andmin();
+
+function andmin(req, res) {
+    var user = new User();
+
+
+    User.findOne({ username: user.username = 'ADMIN'.toLocaleLowerCase() }, (err, userFind) => {
+        if (err) {
+            console.log('Error general', err)
+        } else if (userFind) {
+
+        } else {
+            user.password = '123';
+            user.username = 'ADMIN'.toLocaleLowerCase();
+            user.role = 'ROLE_ADMIN';
+
+            user.save((err, userSaved) => {
+                if (err) {
+                    console.log('Error general', err);
+                } else if (userSaved) {
+
+                    console.log('Admin creado Con exito', userSaved);
+                } else {
+                    console.log('No se puedo guardar Admin');
+                }
+            });
+        }
+    });
+}
+
 /* UploadImage */
 function uploadImage(req, res){
     var userId = req.params.userId;
