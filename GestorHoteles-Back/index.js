@@ -6,7 +6,7 @@ var port = process.env.PORT || 3200;
 
 mongoose.Promise = global.Promise;
 mongoose.set('useFindAndModify', false);
-mongoose.connect('mongodb://localhost:27017/Gestor-Hoteles', {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect('mongodb+srv://admin:admin@gestorhoteles.ezb2r.mongodb.net/GestorHoteles?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true})
     .then(()=>{
             console.log('Conectado a la BD');
             app.listen(port, ()=>{
